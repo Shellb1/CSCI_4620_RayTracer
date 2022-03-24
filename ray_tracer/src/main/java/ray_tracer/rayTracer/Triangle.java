@@ -11,7 +11,7 @@ public class Triangle {
     }
 
     public String toString() {
-        String point1 = "point 1: (" + this.one.x + ", " + this.one.y + ", " + this.one.z + ")\n";
+        String point1 = "Triangle: point 1: (" + this.one.x + ", " + this.one.y + ", " + this.one.z + ")\n";
         String point2 = "point 2: (" + this.two.x + ", " + this.two.y + ", " + this.two.z + ")\n";
         String point3 = "point 3: (" + this.three.x + ", " + this.three.y + ", " + this.three.z + ")\n";
         StringBuilder builder = new StringBuilder();
