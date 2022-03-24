@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 public class Logging {
     
     public static void log(String message) {

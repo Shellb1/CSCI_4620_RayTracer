@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 import java.io.File;
 import java.io.IOException;
 

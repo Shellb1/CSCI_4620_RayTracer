@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 public class Vector3 {
 
     public float x;

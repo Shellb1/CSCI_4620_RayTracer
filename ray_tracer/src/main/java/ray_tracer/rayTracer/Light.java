@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 public class Light {
     public Vector3 direction;
     public Vector3 color;

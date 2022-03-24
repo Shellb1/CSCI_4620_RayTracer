@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 import java.awt.image.*;
 import java.awt.*;
 

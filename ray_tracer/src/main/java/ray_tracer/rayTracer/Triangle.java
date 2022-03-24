@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 public class Triangle {
     public Vector3 one;
     public Vector3 two;

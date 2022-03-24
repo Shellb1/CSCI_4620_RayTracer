@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 public class Material {
     public Vector3 color;
 

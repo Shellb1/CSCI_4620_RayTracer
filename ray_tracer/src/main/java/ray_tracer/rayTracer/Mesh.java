@@ -1,3 +1,4 @@
+package ray_tracer.rayTracer;
 // combinaton of triangles and shader
 public class Mesh {
     public Material material;
