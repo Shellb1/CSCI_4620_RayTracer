@@ -13,7 +13,7 @@ class Main {
 
             RayTracer rt = new RayTracer(null, new Camera(vector, vector, vector), null);
             var image = rt.render(512, 512);
-            ImageIO.write(image, "PNG", new File("./out.png"));
+            ImageIO.write(image, "PNG", new File("./src/main/resources/out.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
