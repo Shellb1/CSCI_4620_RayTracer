@@ -2,10 +2,10 @@ package ray_tracer.rayTracer;
 
 public class Ray {
 
-	public Point origin;
-	public Point direction;
+	public Vector3 origin;
+	public Vector3 direction;
 	
-	public Ray(Point origin, Point direction) {
+	public Ray(Vector3 origin, Vector3 direction) {
 		this.origin = origin;
 		this.direction = direction;
 	}

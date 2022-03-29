@@ -15,7 +15,7 @@ class Main {
 
             
             // create geometry
-            var pointOne = new Point(0, 0, 0);
+            var pointOne = new Vector3(0, 0, 0);
             
             
             
