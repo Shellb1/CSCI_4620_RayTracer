@@ -65,7 +65,7 @@ public class Vector3Test {
     @Test
     public void testUnit() {
     	Vector3 vector = getInitialVector();
-    	Vector3 result = vector.unit();
+    	Vector3 result = vector.normalize();
     	Logging.log(result.toString());
     	assertEquals(result.x, 0.26726124, 0.00001);
     	assertEquals(result.y, 0.53452248382, 0.00001);
@@ -75,7 +75,7 @@ public class Vector3Test {
     @Test
     public void testUnit_lengthZero() {
     	Vector3 vector = new Vector3(0, 0, 0);
-    	Vector3 result = vector.unit();
+    	Vector3 result = vector.normalize();
     	assertTrue(result.x == 0);
     	assertTrue(result.y == 0);
     	assertTrue(result.z == 0);

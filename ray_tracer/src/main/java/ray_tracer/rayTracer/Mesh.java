@@ -2,10 +2,10 @@ package ray_tracer.rayTracer;
 // combinaton of triangles and shader
 public class Mesh {
     public Material material;
-    public Triangle[] triangles;
+    public Geometry geometry;
 
-    public Mesh(Material material, Triangle[] triangles) {
+    public Mesh(Geometry geometry, Material material) {
         this.material = material;
-        this.triangles = triangles;
+        this.geometry = geometry;
     }
 }
