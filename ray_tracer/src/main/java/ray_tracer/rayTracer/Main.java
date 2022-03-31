@@ -12,8 +12,8 @@ class Main {
         	Logging.log("Beginning ray tracing");
         	long startTime = System.currentTimeMillis();
         	
-        	var width = 128;
-        	var height = 128;
+        	var width = 512;
+        	var height = 512;
 
         	BufferedImage outImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
         	
@@ -32,6 +32,9 @@ class Main {
         	
         	var planeMesh1 = new Mesh(plane1, material1);
         	var planeMesh2 = new Mesh(plane2, material2);
+            var sphereMesh1 = new Mesh(sphere1, material3);
+            var triangleMesh1 = new Mesh(triangle, material3);
+
         	
         	// camera
         	var cameraOrigin = new Vector3(0, 0, -1);
@@ -45,6 +48,7 @@ class Main {
         	var scene = new Scene(new DirectionalLight[] {light}, camera, new Mesh[] {
         			planeMesh1,
         			planeMesh2,
+        			sphereMesh1,
         	});
         	scene.render(outImage);
         	ImageIO.write(outImage, "png", new File("./src/main/resources/out.png"));
