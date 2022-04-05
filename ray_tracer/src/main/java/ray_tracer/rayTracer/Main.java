@@ -26,15 +26,16 @@ class Main {
         	var plane2 = new Plane(new Vector3(0, (float) (-1 / Math.sqrt(2)), (float) (-1 / Math.sqrt(2))), 1);
         	
         	var sphere1 = new Sphere(new Vector3(0, 0, 0), 0.5f);
-        	var material1 = new Material(new Vector3(0, 1, 0));
-        	var material2 = new Material(new Vector3(1, 0, 0));
-        	var material3 = new Material(new Vector3(0, 0, 1));
+        	var material1 = new SolidMaterial(new Vector3(0, 1, 0));
+        	var material2 = new SolidMaterial(new Vector3(1, 0, 0));
+        	var material3 = new SolidMaterial(new Vector3(0, 0, 1));
         	
         	var planeMesh1 = new Mesh(plane1, material1);
         	var planeMesh2 = new Mesh(plane2, material2);
             var sphereMesh1 = new Mesh(sphere1, material3);
             var triangleMesh1 = new Mesh(triangle, material3);
 
+            // GO INTO BLENDER, EXPORT OBJ FILE, WORK ON CODE TO IMPORT HERE
         	
         	// camera
         	var cameraOrigin = new Vector3(0, 0, -1);
@@ -53,8 +54,7 @@ class Main {
         	scene.render(outImage);
         	ImageIO.write(outImage, "png", new File("./src/main/resources/out.png"));
      
-        	
-            Logging.log("Ray tracing complete in: " + (System.currentTimeMillis() - startTime));
+            Logging.log("Ray tracing complete in: " + (System.currentTimeMillis() - startTime) + " milliseconds");
         } catch (IOException e) {
             e.printStackTrace();
         }

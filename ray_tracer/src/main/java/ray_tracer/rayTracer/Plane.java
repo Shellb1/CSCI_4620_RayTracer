@@ -12,7 +12,7 @@ public class Plane implements Geometry {
 	
 	@Override
 	public TAndNormal intersect(Ray ray) {
-		var num = -D-ABC.dotProduct(ray.origin);
+		var num = -D - ABC.dotProduct(ray.origin);
 		var den = ABC.dotProduct(ray.direction);
 		var T = (float) num / den;
 		return new TAndNormal(T, ABC);

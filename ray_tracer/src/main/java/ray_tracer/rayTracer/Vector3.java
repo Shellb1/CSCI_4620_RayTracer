@@ -11,7 +11,13 @@ public class Vector3 {
         this.z = z;
     }
 
-    public float dotProduct(Vector3 other) {
+    public Vector3(Vector3 vector3) {
+		this.x = vector3.x;
+		this.y = vector3.y;
+		this.z = vector3.z;
+	}
+
+	public float dotProduct(Vector3 other) {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 
@@ -67,6 +73,22 @@ public class Vector3 {
     public Vector3 scale(float scalar) {
     	return new Vector3(x * scalar, y * scalar, z * scalar);
     }
+    
+    public Vector3 clamp(float min, float max){
+        Vector3 toReturn = new Vector3(this);
+        toReturn.x = Math.max(0, Math.min(1, toReturn.x));
+        toReturn.y = Math.max(0, Math.min(1, toReturn.y));
+        toReturn.z = Math.max(0, Math.min(1, toReturn.z));
+
+        return toReturn;
+      }
+
+      public Vector3 reflect(Vector3 about){
+        var dot = this.dotProduct(about);
+        var negation = this.scale(-1);
+        var toReturn = negation.add(about.scale(2 * dot));
+        return toReturn;
+      }
 
 	@Override
 	public boolean equals(Object obj) {
