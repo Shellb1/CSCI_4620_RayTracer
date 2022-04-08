@@ -17,6 +17,10 @@ public class Vector3 {
 		this.z = vector3.z;
 	}
 
+	public Vector3() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public float dotProduct(Vector3 other) {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }

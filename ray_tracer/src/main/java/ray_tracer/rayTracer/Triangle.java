@@ -44,7 +44,10 @@ public class Triangle implements Geometry {
     
     @Override
     public TAndNormal intersect(Ray ray) {
-    	return null;
+        Vector3 vertex0 = this.points[0];
+        Vector3 vertex1 = this.points[1];
+        Vector3 vertex2 = this.points[2];
+        return null;
     }
 
     public String toString() {

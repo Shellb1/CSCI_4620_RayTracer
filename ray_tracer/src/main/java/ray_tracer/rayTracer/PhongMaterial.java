@@ -6,7 +6,7 @@ public class PhongMaterial implements Material{
 
 	  public PhongMaterial(Vector3 color){
 	    this.color = color;
-	  }
+	  } 
 	  public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight){
 	    var ambient = new Vector3(.1f, .1f, .1f);
 
@@ -23,7 +23,7 @@ public class PhongMaterial implements Material{
 
 	    var reflection = directionalLight.directionToLight.reflect(normal);
 	    var specularStrength = Math.max(0, reflection.dotProduct(fromDirection));
-	    specularStrength = (float)Math.pow(specularStrength, 2);
+	    specularStrength = (float) Math.pow(specularStrength, 1);
 
 	    
 	    var specular = new Vector3(1f, 1f, 1f).scale(specularStrength);
@@ -32,6 +32,5 @@ public class PhongMaterial implements Material{
 	    finalColor = finalColor.clamp(0, 1);
 
 	    return finalColor;
-	    // return this.color;
 	  }
 }
