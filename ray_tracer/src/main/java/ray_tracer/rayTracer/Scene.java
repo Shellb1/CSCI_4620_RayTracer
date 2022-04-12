@@ -21,9 +21,6 @@ public class Scene {
 
 		for (var y = 0; y < outImage.getHeight(); y++) {
 			for (var x = 0; x < outImage.getWidth(); x++) {
-				// if (y == 64 && x == 64) {
-				// System.out.println("Stop");
-				// }
 				this.colors[x][y] = new Vector3(0, 0, 0);
 
 				var samples = 100;

@@ -44,10 +44,27 @@ public class Triangle implements Geometry {
     
     @Override
     public TAndNormal intersect(Ray ray) {
-        Vector3 vertex0 = this.points[0];
-        Vector3 vertex1 = this.points[1];
-        Vector3 vertex2 = this.points[2];
-        return null;
+        
+        Plane plane = new Plane(points);
+        TAndNormal planeIntersection = plane.intersect(ray);
+
+        Vector3 collision = ray.origin.add(ray.direction.scale(planeIntersection.t));
+        var normal = planeIntersection.normal;
+
+        Plane plane1 = new Plane(points[1], points[0], points[1].add(normal));
+        Plane plane2 = new Plane(points[2], points[1], points[2].add(normal));
+        Plane plane3 = new Plane(points[0], points[2], points[0].add(normal));
+
+        float offset1 = plane1.offset(collision);
+        float offset2 = plane2.offset(collision);
+        float offset3 = plane3.offset(collision);
+
+        if(offset1 >= 0 && offset2 >= 0 && offset3 >= 0){
+          return planeIntersection;
+        }
+
+        return new TAndNormal(-1, null);
+    	
     }
 
     public String toString() {
