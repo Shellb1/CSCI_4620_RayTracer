@@ -10,10 +10,11 @@ public class Scene {
 	public Mesh[] meshes;
 	public Vector3[][] colors;
 
-	public Scene(DirectionalLight[] lights, Camera camera, Mesh[] mesh) {
-		this.lights = lights;
+	public Scene(DirectionalLight[] light, Camera camera, Mesh[] mesh) {
+		this.lights = light;
 		this.camera = camera;
 		this.meshes = mesh;
+
 	}
 
 	public void render(BufferedImage outImage) {
@@ -21,6 +22,7 @@ public class Scene {
 
 		for (var y = 0; y < outImage.getHeight(); y++) {
 			for (var x = 0; x < outImage.getWidth(); x++) {
+
 				this.colors[x][y] = new Vector3(0, 0, 0);
 
 				var samples = 100;
@@ -36,6 +38,9 @@ public class Scene {
 				var scaleX = percentX * 2 - 1;
 				var scaleY = percentY * 2 - 1;
 
+				scaleX *= 1f;
+				scaleY *= 1f;
+
 				// Invert because math and screens are opposite
 				scaleY *= -1;
 
@@ -46,42 +51,25 @@ public class Scene {
 				for (var s = 0; s < samples; s++) {
 
 					var direction = viewingPlanePoint.subtract(origin).normalize();
-					var jx = (float) Math.random() * 2 - 1;
-					var jy = (float) Math.random() * 2 - 1;
-					var jz = (float) Math.random() * 2 - 1;
+					var jx = Math.random() * 2 - 1;
+					var jy = Math.random() * 2 - 1;
+					var jz = Math.random() * 2 - 1;
 
-					var jitter = new Vector3(jx, jy, jz).scale(.5f).scale(pixelWidth);
+					var jitter = new Vector3((float) jx, (float) jy, (float) jz).scale(.1f).scale(pixelWidth);
 					direction = direction.add(jitter).normalize();
 
 					Ray ray = new Ray(origin, direction);
 
-					float closestDistance = Float.MAX_VALUE;
-					Vector3 closestColor = null;
-					Vector3 closestNormal = null;
+					Intersection intersection = this.shootRay(ray);
 
-					for (var i = 0; i < meshes.length; i++) {
-						var mesh = meshes[i];
-						var material = mesh.material;
-						var geometry = mesh.geometry;
-
-						// Now do the ray cast.
-
-						TAndNormal tn = geometry.intersect(ray);
-						if (tn.t <= 0)
-							continue;
-						if (tn.t < closestDistance) {
-							closestDistance = tn.t;
-							closestNormal = tn.normal;
-							// Do the shading
-							var closestPoint = ray.origin.add(ray.direction.scale(tn.t));
-							var fromDirection = ray.origin.subtract(closestPoint).normalize();
-							closestColor = material.Shade(fromDirection, closestPoint, closestNormal, lights[0]);
-						}
-					}
-
-					if (closestColor == null)
+					if (intersection == null || intersection.mesh == null || intersection.normal == null)
 						colors[x][y] = colors[x][y].add(new Vector3(0, 0, 0));
 					else {
+						var collisionPosition = ray.origin.add(ray.direction.scale(intersection.t));
+						var fromDirection = ray.origin.subtract(collisionPosition).normalize();
+						var closestColor = intersection.mesh.material.Shade(fromDirection, collisionPosition,
+								intersection.normal, lights[0], this, 2);
+
 						colors[x][y] = colors[x][y].add(closestColor);
 					}
 				}
@@ -91,6 +79,36 @@ public class Scene {
 		}
 
 		save(outImage);
+	}
+
+	public Intersection shootRay(Ray ray) {
+		float closestDistance = Float.MAX_VALUE;
+		Vector3 closestColor = null;
+		Vector3 closestNormal = null;
+		int closestMesh = -1;
+		for (var i = 0; i < meshes.length; i++) {
+			var mesh = meshes[i];
+			var material = mesh.material;
+			var geometry = mesh.geometry;
+
+			// Now do the ray cast.
+
+			Intersection tn = geometry.intersect(ray);
+			if (tn.t <= 0)
+				continue;
+			if (tn.t < closestDistance) {
+				closestMesh = i;
+				closestDistance = tn.t;
+				closestNormal = tn.normal;
+				tn.mesh = mesh;
+				// Do the shading
+				var closestPoint = ray.origin.add(ray.direction.scale(tn.t));
+				var fromDirection = ray.origin.subtract(closestPoint).normalize();
+			}
+		}
+		if (closestMesh == -1)
+			return null;
+		return new Intersection(closestDistance, closestNormal, closestMesh == -1 ? null : meshes[closestMesh]);
 	}
 
 	private void save(BufferedImage outImage) {

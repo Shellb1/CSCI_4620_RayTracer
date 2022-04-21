@@ -47,32 +47,19 @@ class Main {
 					triangles.add(objTriangle);
 				}
 			}
-			var phong = new PhongMaterial(new Vector3(0, 0, 1));
 
-			var pointOne = new Vector3(0, 0, 0);
-			var pointTwo = new Vector3(1, 0, 0);
-			var pointThree = new Vector3(0, 1, 0);
-			var triangle = new Triangle(pointOne, pointTwo, pointThree);
-
-			var plane1 = new Plane(new Vector3(0, 0, -1), 1);
-			var plane2 = new Plane(new Vector3(0, (float) (-1 / Math.sqrt(2)), (float) (-1 / Math.sqrt(2))), 1);
-
-			var sphere1 = new Sphere(new Vector3(0, 0, 0), 0.5f);
-			var material1 = new SolidMaterial(new Vector3(0, 1, 0));
-			var material2 = new PhongMaterial(new Vector3(1, 0, 0));
-			var material3 = new PhongMaterial(new Vector3(0, 0, 1));
-
-			var planeMesh1 = new Mesh(plane1, material1);
-			var planeMesh2 = new Mesh(plane2, material2);
-			var sphereMesh1 = new Mesh(sphere1, material3);
-			var triangleMesh = new Mesh(triangle, material1);
 
 			Triangle[] allTriangles = triangles.toArray(new Triangle[0]);
-			Mesh[] allObjMeshes = new Mesh[allTriangles.length];
+			ArrayList<Mesh> allMeshes = new ArrayList<Mesh>();
+			allMeshes.add(Meshes.planeMesh2);
+			
+			
+			
+			// add triangles to meshes
 			for (var i = 0; i < allTriangles.length; i++) {
-				var mesh = new Mesh(allTriangles[i], material1);
-				allObjMeshes[i] = mesh;
-			}
+				var mesh = new Mesh(allTriangles[i], Materials.phongGreen);
+				allMeshes.add(mesh);
+			}			
 
 			// camera
 			var cameraOrigin = new Vector3(0, 0, -1);
@@ -83,13 +70,13 @@ class Main {
 			var camera = new Camera(cameraOrigin, cameraLookAt, cameraLookUp, halfWidth);
 
 			var light = new DirectionalLight(new Vector3(2, 2, -2).normalize(), 1);
-//        	var scene = new Scene(new DirectionalLight[] {light}, camera, new Mesh[] {
-//        			//planeMesh1,
-//        			//planeMesh2,
-//        			//sphereMesh1,
-//        			triangleMesh,
-//        	});
-			var scene = new Scene(new DirectionalLight[] { light }, camera, allObjMeshes);
+
+			Mesh[] meshArray = new Mesh[allMeshes.size()];
+			for (int i = 0; i < meshArray.length; i++) {
+				meshArray[i] = allMeshes.get(i);
+			}
+			
+			var scene = new Scene(new DirectionalLight[] { light }, camera, meshArray);
 			scene.render(outImage);
 			ImageIO.write(outImage, "png", new File("./src/main/resources/out.png"));
 

@@ -8,7 +8,7 @@ public class SolidMaterial implements Material {
 	}
 
 	@Override
-	public Vector3 Shade(Vector3 lookDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight) {
-		return this.color;
-	}
+	public Vector3 Shade(Vector3 fromDirection, Vector3 position, Vector3 normal, DirectionalLight directionalLight, Scene scene, int remainingBounces){
+	    return this.color;
+	  }
 }
