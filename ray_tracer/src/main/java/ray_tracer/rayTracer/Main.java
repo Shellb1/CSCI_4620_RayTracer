@@ -51,7 +51,10 @@ class Main {
 
 			Triangle[] allTriangles = triangles.toArray(new Triangle[0]);
 			ArrayList<Mesh> allMeshes = new ArrayList<Mesh>();
-			allMeshes.add(Meshes.planeMesh2);
+			Mesh planeMesh = Meshes.planeMesh2;
+			planeMesh.geometry = Geometries.plane1;
+			planeMesh.material = Materials.pureReflective;
+			allMeshes.add(planeMesh);
 			
 			
 			
