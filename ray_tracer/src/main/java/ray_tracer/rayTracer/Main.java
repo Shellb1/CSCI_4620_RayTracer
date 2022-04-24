@@ -47,22 +47,20 @@ class Main {
 					triangles.add(objTriangle);
 				}
 			}
-
-
+			// add triangles to meshes
 			Triangle[] allTriangles = triangles.toArray(new Triangle[0]);
 			ArrayList<Mesh> allMeshes = new ArrayList<Mesh>();
-			Mesh planeMesh = Meshes.planeMesh2;
-			planeMesh.geometry = Geometries.plane1;
-			planeMesh.material = Materials.pureReflective;
+			Mesh planeMesh = Meshes.planeMesh1;
 			allMeshes.add(planeMesh);
-			
-			
-			
-			// add triangles to meshes
 			for (var i = 0; i < allTriangles.length; i++) {
-				var mesh = new Mesh(allTriangles[i], Materials.phongGreen);
+				var mesh = new Mesh(allTriangles[i], Materials.phongRed);
 				allMeshes.add(mesh);
 			}			
+
+
+			
+			
+			
 
 			// camera
 			var cameraOrigin = new Vector3(0, 0, -1);

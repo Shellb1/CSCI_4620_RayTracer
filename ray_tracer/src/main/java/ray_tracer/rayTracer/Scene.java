@@ -49,7 +49,6 @@ public class Scene {
 				var pixelWidth = 2 * lookRight.length() / outImage.getWidth();
 
 				for (var s = 0; s < samples; s++) {
-
 					var direction = viewingPlanePoint.subtract(origin).normalize();
 					var jx = Math.random() * 2 - 1;
 					var jy = Math.random() * 2 - 1;
